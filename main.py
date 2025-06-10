@@ -30,3 +30,22 @@ class GameView(arcade.Window):
         
         # Map
         self.tile_map = None
+        
+    def on_update(self, delta_time):
+        # Physics engine update related properties
+        self.physics_engine.update()
+        # Center camera to player
+        self.camera.position = self.player_sprite.position
+        
+        # Continue turning based on attributes
+        # If still turning left, turn sprite left
+        if self.turning_left:
+            self.player_sprite.angle -= TURN_SPEED
+            # Update movement to ensure moving forwards/backwards reflects the new angle
+            self.update_movement()
+        
+        # If still turning right, turn sprite right
+        if self.turning_right:
+            self.player_sprite.angle += TURN_SPEED
+            # Update movement to ensure moving forwards/backwards reflects the new angle
+            self.update_movement()
