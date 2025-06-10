@@ -122,6 +122,10 @@ class GameView(arcade.Window):
         }
         
         # Load in tile map from file (the map that the car drives on)
+        # TODO
+        # TODO
+        #TODO
+        # Map file needs to be in directory
         self.tile_map = arcade.load_tilemap("map.json", scaling=TILE_SCALING, layer_options=layer_options)
         
         # Create scene from tilemap
