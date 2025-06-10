@@ -22,7 +22,7 @@ class GameView(arcade.Window):
         self.moving_forward = False
         self.moving_backward = False
         self.turning_left = False
-        self.turning_right
+        self.turning_right = False
         
         # Camera
         self.camera = None
