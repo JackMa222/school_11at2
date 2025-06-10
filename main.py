@@ -129,7 +129,7 @@ class GameView(arcade.Window):
         
         # Add player on top sprite list and add player texture
         self.scene.add_sprite_list_after("Player", "Walls")
-        self.player_texture = arcade.load_texture("Car_1_01.png")
+        self.player_texture = arcade.load_texture("Resources/Car_1_01.png")
         
         # Designate player size
         original_height = self.player_texture.height
@@ -154,4 +154,19 @@ class GameView(arcade.Window):
         self.physics_engine = arcade.PhysicsEngineSimple(
             self.player_sprite, walls=self.scene["Walls"]
         )
+        
+    def on_draw(self):
+        # TODO add comments
+        self.clear()
+        self.camera.use()
+        self.scene.draw()
+        self.gui_camera.use()
+    
+def main():
+    window = GameView()
+    window.setup()
+    arcade.run()
+        
+if __name__ == "__main__":
+    main()
         
