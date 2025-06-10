@@ -63,9 +63,11 @@ class GameView(arcade.Window):
             self.update_movement()
             
     def on_key_press(self, key, modifiers):
+        # Resets the game/level
         if key == arcade.key.ESCAPE:
             self.setup()
             
+        # Adjusts the players (the cars) movement based on keyboard input from the user    
         if key == arcade.key.W or key == arcade.key.UP:
             # Move forward in the direction the car is facing
             self.moving_forward = True
@@ -86,4 +88,27 @@ class GameView(arcade.Window):
             # Ability to increase speed on space press
             if IS_TURBO:
                 self.player_movement_speed = PLAYER_TURBO_MOVEMENT_SPEED
+            self.update_movement()
+            
+    def on_key_release(self, key, modifers):
+        # When keys are released the movement and/or turning also ceases
+        if key == arcade.key.W or key == arcade.key.UP:
+            # Stop moving forward when W or UP is released
+            self.moving_forward = False
+            self.update_movement()
+        elif key == arcade.key.S or key == arcade.key.DOWN:
+            # Stop moving backwards when S or DOWN is released
+            self.moving_backward = False
+            self.update_movement()
+        elif key == arcade.key.A or key == arcade.key.LEFT:
+            # Stop turning left when A or LEFT is released
+            self.turning_left = False
+            self.update_movement()
+        elif key == arcade.key.D or key == arcade.key.RIGHT:
+            # Stop turning right when D or RIGHT is released
+            self.turning_right = False
+            self.update_movement()
+        elif key == arcade.key.SPACE:
+            # Revert player_movement speed to initial value once SPACE is released
+            self.player_movement_speed = PLAYER_MOVEMENT_SPEED
             self.update_movement()
