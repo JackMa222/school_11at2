@@ -61,3 +61,29 @@ class GameView(arcade.Window):
             self.player_sprite.angle += TURN_SPEED
             # Update movement to ensure moving forwards/backwards reflects the new angle
             self.update_movement()
+            
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.ESCAPE:
+            self.setup()
+            
+        if key == arcade.key.W or key == arcade.key.UP:
+            # Move forward in the direction the car is facing
+            self.moving_forward = True
+            self.update_movement()
+        if key == arcade.key.A or key == arcade.key.LEFT:
+            # Rotate car left and update movement
+            self.turning_left = True
+            self.update_movement()
+        elif key == arcade.key.D or key == arcade.key.RIGHT:
+            # Rotate car right and update movement
+            self.turning_right = True
+            self.update_movement()
+        elif key == arcade.key.S or key == arcade.key.DOWN:
+            # Move car backwards
+            self.moving_backward = True
+            self.update_movement()
+        elif key == arcade.key.SPACE:
+            # Ability to increase speed on space press
+            if IS_TURBO:
+                self.player_movement_speed = PLAYER_TURBO_MOVEMENT_SPEED
+            self.update_movement()
