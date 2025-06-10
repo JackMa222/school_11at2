@@ -30,6 +30,18 @@ class GameView(arcade.Window):
         
         # Map
         self.tile_map = None
+    
+    def update_movement(self):
+        radians_angle = math.radians(self.player_sprite.angle)
+        if self.moving_forward:
+            self.player_sprite.change_x = self.player_movement_speed * math.sin(radians_angle)
+            self.player_sprite.change_y = self.player_movement_speed * math.cos(radians_angle)
+        elif self.moving_backward:
+            self.player_sprite.change_x = -self.player_movement_speed * math.sin(radians_angle)
+            self.player_sprite.change_y = -self.player_movement_speed * math.cos(radians_angle)
+        else:
+            self.player_sprite.change_x = 0
+            self.player_sprite.change_y = 0
         
     def on_update(self, delta_time):
         # Physics engine update related properties
