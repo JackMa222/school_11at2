@@ -112,3 +112,46 @@ class GameView(arcade.Window):
             # Revert player_movement speed to initial value once SPACE is released
             self.player_movement_speed = PLAYER_MOVEMENT_SPEED
             self.update_movement()
+            
+    def setup(self):
+        # Inital/reset code
+        layer_options = {
+            "Walls": {
+                "use_spatial_hash": True
+            }
+        }
+        
+        # Load in tile map from file (the map that the car drives on)
+        self.tile_map = arcade.load_tilemap("map.json", scaling=TILE_SCALING, layer_options=layer_options)
+        
+        # Create scene from tilemap
+        self.scene = arcade.Scene.from_tilemap(self.tile_map)
+        
+        # Add player on top sprite list and add player texture
+        self.scene.add_sprite_list_after("Player", "Walls")
+        self.player_texture = arcade.load_texture("Car_1_01.png")
+        
+        # Designate player size
+        original_height = self.player_texture.height
+        desired_height = 128
+        scale = desired_height / original_height
+
+        # Create/position player sprite (car)
+        self.player_sprite = arcade.Sprite(self.player_texture, scale=scale)
+        self.player_sprite.center_x = 64
+        self.player_sprite.center_y = 128
+        self.scene.add_sprite("Player", self.player_sprite)
+    
+        # Create camera
+        self.camera = arcade.Camera2D()
+        self.gui_camera = arcade.Camera2D()
+        #self.score_text = arcade.Text(f"Score : {self.score}", x=0, y=0)
+        
+        # Set background color to racetrack gray
+        self.background_color = arcade.types.Color(187, 187, 187, 255)
+        
+        # Create physics engine
+        self.physics_engine = arcade.PhysicsEngineSimple(
+            self.player_sprite, walls=self.scene["Walls"]
+        )
+        
