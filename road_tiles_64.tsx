@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.11.2" name="road_tiles_64" tilewidth="64" tileheight="64" tilecount="78" columns="13">
- <image source="../Resources/road_tiles_64.png" width="832" height="384"/>
+ <image source="Resources/road_tiles_64.png" width="832" height="384"/>
  <tile id="1">
   <objectgroup draworder="index" id="2">
    <object id="1" x="-0.181818" y="0.727273">
