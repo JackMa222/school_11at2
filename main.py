@@ -122,9 +122,6 @@ class GameView(arcade.Window):
         }
         
         # Load in tile map from file (the map that the car drives on)
-        # TODO
-        # TODO
-        #TODO
         # Map file needs to be in directory
         self.tile_map = arcade.load_tilemap("map.json", scaling=TILE_SCALING, layer_options=layer_options)
         
@@ -161,14 +158,26 @@ class GameView(arcade.Window):
         
     def on_draw(self):
         # TODO add comments
+        # Clears the window with the configured background color set
         self.clear()
+        
+        # Set camera as the camera to be used
         self.camera.use()
+        
+        # Draw the scene (that was created in setup)
         self.scene.draw()
+        
+        # Set gui_camera        
         self.gui_camera.use()
     
 def main():
+    # Create window object
     window = GameView()
+    
+    # Run setup function for window
     window.setup()
+    
+    # Run the game using arcade
     arcade.run()
         
 if __name__ == "__main__":
