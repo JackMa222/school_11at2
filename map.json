@@ -4,7 +4,7 @@
  "layers":[
         {
          "compression":"zlib",
-         "data":"eJxjZGBgYBzFo3gUj+JRPKwwAFOoAXg=",
+         "data":"eJxjZGBgYBzFo3gU0wVrQDE2sVFMGA90\/A0lDAA9ow0z",
          "encoding":"base64",
          "height":15,
          "id":1,
@@ -18,7 +18,21 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJydlFEOgyAMhonRPaKLj8vmjuJROBpH6dH2d9CtVEE3kqZQ6\/+1CDr3+xhh\/qQhN3aws\/liMm7OrVgTPNXq8YnBvshBLCjNwLFrqbvmOedSrX5hKF4Q\/eyj1MyxB\/wCe35juqZNH77NeOvrntiDEdFL7MtnVU7XYJi8MMNQe1hy7qDeqXG6UreoaVIc1h\/yekmcCF68GIblePPMm3y7H\/Dhmr7FpscWR3rx6exwXdX9QIwQo0fjbGpNsyZhtPZjztrohfrEdpcD\/cn07NO+VPcDejQkfZL7MTf0ZW6+T5T1lOa0U+Z72PtR01frDyPrC6fFKM5DS19rsx+3z3ZNzsNd3f+jd4SR\/1frCaN\/jHt8AdSuUhg=",
+         "data":"eJxjYBgFo2AUjIJRAAL+DAwLaG1HAB3sCATaAQAkAwLR",
+         "encoding":"base64",
+         "height":15,
+         "id":4,
+         "name":"FinishLine",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":25,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJxjYBgFo2AUjIKhAYKAmI+GGGj+gngGhgRa+gFo\/gKgPQlA+w7QCgPNPwAAMTUYiw==",
          "encoding":"base64",
          "height":15,
          "id":3,
@@ -30,7 +44,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":4,
+ "nextlayerid":5,
  "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-down",
@@ -40,6 +54,14 @@
         {
          "firstgid":1,
          "source":"road_tiles_64.tsx"
+        }, 
+        {
+         "firstgid":79,
+         "source":"Flagv2.tsx"
+        }, 
+        {
+         "firstgid":82,
+         "source":"Newtiles.tsx"
         }],
  "tilewidth":64,
  "type":"map",

@@ -118,6 +118,9 @@ class GameView(arcade.Window):
         layer_options = {
             "Walls": {
                 "use_spatial_hash": True
+            },
+            "FinishLine": {
+                "use_spatial_hash": True
             }
         }
         
@@ -166,6 +169,10 @@ class GameView(arcade.Window):
         
         # Draw the scene (that was created in setup)
         self.scene.draw()
+        
+        # Test code for colissions
+        #for sprite in self.scene["FinishLine"]:
+        #    sprite.draw_hit_box(arcade.color.RED, line_thickness=2)
         
         # Set gui_camera        
         self.gui_camera.use()
