@@ -12,6 +12,8 @@ class GameView(arcade.Window):
         # Set up window using paretn class
         super().__init__(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE)
         
+        self.x = 0
+        
         # Set up class variables
         # Player
         self.player_texture = None
@@ -24,12 +26,19 @@ class GameView(arcade.Window):
         self.turning_left = False
         self.turning_right = False
         
+        # Finish line
+        self.finish_line_list = None
+        
         # Camera
         self.camera = None
         self.gui_camera = None
         
         # Map
         self.tile_map = None
+        
+        # Levels
+        self.level = STARTING_LEVEL
+        self.max_level = LEVELS
     
     def update_movement(self):
         radians_angle = math.radians(self.player_sprite.angle)
@@ -61,6 +70,14 @@ class GameView(arcade.Window):
             self.player_sprite.angle += TURN_SPEED
             # Update movement to ensure moving forwards/backwards reflects the new angle
             self.update_movement()
+            
+        if arcade.check_for_collision_with_list(self.player_sprite, self.finish_line_list):
+            print("FINISH!", self.x)
+            self.x += 1
+            
+            if self.level < self.max_level:
+                self.level += 1
+                self.setup()
             
     def on_key_press(self, key, modifiers):
         # Resets the game/level
@@ -126,7 +143,7 @@ class GameView(arcade.Window):
         
         # Load in tile map from file (the map that the car drives on)
         # Map file needs to be in directory
-        self.tile_map = arcade.load_tilemap("map.json", scaling=TILE_SCALING, layer_options=layer_options)
+        self.tile_map = arcade.load_tilemap(f"map_level_{self.level}.json", scaling=TILE_SCALING, layer_options=layer_options)
         
         # Create scene from tilemap
         self.scene = arcade.Scene.from_tilemap(self.tile_map)
@@ -145,6 +162,9 @@ class GameView(arcade.Window):
         self.player_sprite.center_x = 64
         self.player_sprite.center_y = 128
         self.scene.add_sprite("Player", self.player_sprite)
+        
+        # Designate Finish Line
+        self.finish_line_list = self.scene["FinishLine"]
     
         # Create camera
         self.camera = arcade.Camera2D()
