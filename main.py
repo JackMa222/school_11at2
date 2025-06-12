@@ -41,9 +41,15 @@ class GameView(arcade.Window):
         self.level = STARTING_LEVEL
         self.max_level = LEVELS
         
+        # Time map is started
         self.start_time = None
-        self.timer = None
+        # Timer that is update in on_update 
+        self.timer = 0
+        
+        # Boolean if map is running or not
         self.is_live = False
+        
+        self.timer_text = None
     
     def update_movement(self):
         radians_angle = math.radians(self.player_sprite.angle)
@@ -80,6 +86,7 @@ class GameView(arcade.Window):
         # If so update timer
         if self.is_live:
             self.timer = time.time() - self.start_time
+            self.timer_text.text = f"Time: {round(self.timer, 2)}"
             print(round(self.timer,2))
         
         if arcade.check_for_collision_with_list(self.player_sprite, self.finish_line_list):
@@ -197,6 +204,9 @@ class GameView(arcade.Window):
         self.start_time = time.time()
         self.is_live = True
         
+        # Score text
+        self.timer_text = arcade.Text(f"Time: {round(self.timer, 2)}", x = 16, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
+        
     def on_draw(self):
         # TODO add comments
         # Clears the window with the configured background color set
@@ -207,13 +217,16 @@ class GameView(arcade.Window):
         
         # Draw the scene (that was created in setup)
         self.scene.draw()
-        
+               
         # Test code for colissions
         #for sprite in self.scene["FinishLine"]:
         #    sprite.draw_hit_box(arcade.color.RED, line_thickness=2)
         
         # Set gui_camera        
         self.gui_camera.use()
+        
+        # Draw score text
+        self.timer_text.draw()
     
 def main():
     # Create window object
