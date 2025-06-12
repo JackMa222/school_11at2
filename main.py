@@ -1,5 +1,6 @@
 import arcade
 import math
+import time
 
 from CONSTANTS import *
 
@@ -39,6 +40,10 @@ class GameView(arcade.Window):
         # Levels
         self.level = STARTING_LEVEL
         self.max_level = LEVELS
+        
+        self.start_time = None
+        self.timer = None
+        self.is_live = False
     
     def update_movement(self):
         radians_angle = math.radians(self.player_sprite.angle)
@@ -70,10 +75,20 @@ class GameView(arcade.Window):
             self.player_sprite.angle += TURN_SPEED
             # Update movement to ensure moving forwards/backwards reflects the new angle
             self.update_movement()
-            
+        
+        # Check if player is 'going' in the map
+        # If so update timer
+        if self.is_live:
+            self.timer = time.time() - self.start_time
+            print(round(self.timer,2))
+        
         if arcade.check_for_collision_with_list(self.player_sprite, self.finish_line_list):
             print("FINISH!", self.x)
             self.x += 1
+            
+            # End timer
+            self.is_live = False
+            print(self.timer)
             
             if self.level < self.max_level:
                 self.level += 1
@@ -178,6 +193,9 @@ class GameView(arcade.Window):
         self.physics_engine = arcade.PhysicsEngineSimple(
             self.player_sprite, walls=self.scene["Walls"]
         )
+        
+        self.start_time = time.time()
+        self.is_live = True
         
     def on_draw(self):
         # TODO add comments
