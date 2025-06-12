@@ -4,14 +4,14 @@ import time
 
 from CONSTANTS import *
 
-class GameView(arcade.Window):
+class GameView(arcade.View):
     """"
     Main application class.
     """
     
     def __init__(self):
         # Set up window using paretn class
-        super().__init__(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE)
+        super().__init__()
         
         self.x = 0
         
@@ -240,10 +240,12 @@ class GameView(arcade.Window):
     
 def main():
     # Create window object
-    window = GameView()
+    window = arcade.Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE)
+    start_view = GameView()
+    window.show_view(start_view)
     
     # Run setup function for window
-    window.setup()
+    start_view.setup()
     
     # Run the game using arcade
     arcade.run()
