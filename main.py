@@ -87,6 +87,7 @@ class GameView(arcade.Window):
         if self.is_live:
             self.timer = time.time() - self.start_time
             self.timer_text.text = f"Time: {round(self.timer, 2)}"
+            self.total_timer_text.text = f"Total Time: {round(self.timer, 2)}"
             print(round(self.timer,2))
         
         if arcade.check_for_collision_with_list(self.player_sprite, self.finish_line_list):
@@ -207,6 +208,13 @@ class GameView(arcade.Window):
         # Score text
         self.timer_text = arcade.Text(f"Time: {round(self.timer, 2)}", x = 16, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
         
+        # Map/Level Text
+        self.level_text = arcade.Text(f"Level: {self.level}", x = 16+64*6, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
+        
+        # Total time text
+        # TODO actually have total time
+        self.total_timer_text = arcade.Text(f"Total Time: {round(self.timer, 2)}", x = 16+64*11, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
+        
     def on_draw(self):
         # TODO add comments
         # Clears the window with the configured background color set
@@ -225,8 +233,10 @@ class GameView(arcade.Window):
         # Set gui_camera        
         self.gui_camera.use()
         
-        # Draw score text
+        # Draw score, level text
         self.timer_text.draw()
+        self.level_text.draw()
+        self.total_timer_text.draw()
     
 def main():
     # Create window object
