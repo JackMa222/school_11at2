@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.11.2" name="Newtiles" tilewidth="64" tileheight="64" tilecount="65" columns="13">
- <image source="Resources/Newtiles.png" width="832" height="383"/>
+ <image source="../Resources/Newtiles.png" width="832" height="383"/>
  <tile id="0">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="64">
