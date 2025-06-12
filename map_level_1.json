@@ -18,6 +18,20 @@
         }, 
         {
          "compression":"zlib",
+         "data":"eJxjYBgFo2AUjIJRgA5y6CBGSwAARosCHQ==",
+         "encoding":"base64",
+         "height":15,
+         "id":5,
+         "name":"Arrows",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":25,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
          "data":"eJxjYBgFo2AUjIJRAAL+DAwLaG1HAB3sCATaAQAkAwLR",
          "encoding":"base64",
          "height":15,
@@ -44,7 +58,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":5,
+ "nextlayerid":6,
  "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-down",
