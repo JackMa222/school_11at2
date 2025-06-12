@@ -18,7 +18,21 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJxjYBgFo2AUjIJRMNwAAAXcAAE=",
+         "data":"eJxjYBhZIAeLWCUDwwJ6u4McUDnQDhhmIGcIxDvQjQkD7QZ6gcGWD9HLCnLyH7byhl4AAHMEBkE=",
+         "encoding":"base64",
+         "height":15,
+         "id":5,
+         "name":"Arrows",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":25,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "compression":"zlib",
+         "data":"eJxjYBgFo2AUjIJR4M\/AsIDWdgTQwY5AqB0AL0MC0Q==",
          "encoding":"base64",
          "height":15,
          "id":4,
@@ -32,7 +46,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJydlFEOgyAMhonRPaKLj8vmjuJROBpH6dH2d9CtVEE3kqZQ6\/+1CDr3+xhh\/qQhN3aws\/liMm7OrVgTPNXq8YnBvshBLCjNwLFrqbvmOedSrX5hKF4Q\/eyj1MyxB\/wCe35juqZNH77NeOvrntiDEdFL7MtnVU7XYJi8MMNQe1hy7qDeqXG6UreoaVIc1h\/yekmcCF68GIblePPMm3y7H\/Dhmr7FpscWR3rx6exwXdX9QIwQo0fjbGpNsyZhtPZjztrohfrEdpcD\/cn07NO+VPcDejQkfZL7MTf0ZW6+T5T1lOa0U+Z72PtR01frDyPrC6fFKM5DS19rsx+3z3ZNzsNd3f+jd4SR\/1frCaN\/jHt8AdSuUhg=",
+         "data":"eJztlEEKhDAMRbOoLsXSfe2ZvIA9Wo6So82fSYUMU6J0MxsDHxGT\/xKIIfpfzEQ1QQVa8N5TgCbNHQrU1ru5aZARDGPTWcQqmtwyyFjbE141d2bKyv4EmDzCWJqvV38n52E8jDOwlxxbHXZYrhjYYclO3k6\/N2IzfQWnx2J8o\/6bXz6H+vNxcTMmh5Gc3s+AP++dO\/EWemR48Oww8E3Qg2BWWTs+8Bf4ywu6mjF7",
          "encoding":"base64",
          "height":15,
          "id":3,
@@ -44,7 +58,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":5,
+ "nextlayerid":6,
  "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-down",
@@ -54,6 +68,14 @@
         {
          "firstgid":1,
          "source":"road_tiles_64.tsx"
+        }, 
+        {
+         "firstgid":79,
+         "source":"Flagv2.tsx"
+        }, 
+        {
+         "firstgid":82,
+         "source":"Newtiles.tsx"
         }],
  "tilewidth":64,
  "type":"map",
