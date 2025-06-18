@@ -227,8 +227,9 @@ class GameView(arcade.View):
         self.scene.draw()
                
         # Test code for colissions
-        #for sprite in self.scene["FinishLine"]:
-        #    sprite.draw_hit_box(arcade.color.RED, line_thickness=2)
+        if COLLISION_DEBUG_BOXES:
+            for sprite in self.scene["Walls"]:
+                sprite.draw_hit_box(arcade.color.RED, line_thickness=2)
         
         # Set gui_camera        
         self.gui_camera.use()
