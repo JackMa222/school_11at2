@@ -127,6 +127,16 @@ class GameView(arcade.View):
             # Ability to increase speed on space press
             if IS_TURBO:
                 self.player_movement_speed = PLAYER_TURBO_MOVEMENT_SPEED
+        elif key == arcade.key.N and LEVEL_DEBUG_SKIP:
+            self.is_live = False            
+            if self.level < self.max_level:
+                self.level += 1
+                self.setup()
+        elif key == arcade.key.B and LEVEL_DEBUG_SKIP:
+            self.is_live = False            
+            if (self.level-1) > 0:
+                self.level -= 1
+                self.setup()
             
     def on_key_release(self, key, modifers):
         # When keys are released the movement and/or turning also ceases
@@ -175,8 +185,12 @@ class GameView(arcade.View):
 
         # Create/position player sprite (car)
         self.player_sprite = arcade.Sprite(self.player_texture, scale=scale)
-        self.player_sprite.center_x = 64
+        self.player_sprite.center_x = 240
         self.player_sprite.center_y = 128
+        if self.level in HORIZONTAL_START_LEVELS:
+            self.player_sprite.angle = 90
+            self.player_sprite.center_x = 96
+            self.player_sprite.center_y = 240
         self.scene.add_sprite("Player", self.player_sprite)
         
         # Designate Finish Line
