@@ -11,14 +11,14 @@
          "name":"Foreground",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":30,
          "x":0,
          "y":0
         }, 
         {
          "compression":"zlib",
-         "data":"eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==",
+         "data":"eJzlVNENhSAMZFQG6ALdpqMwms9EfE3T6yuIzw8vMSC9HieGK8UHl9JA6QQpDppn0Xv4O9bI08weq3Q8b30d1VZB63fv+2i\/Y8SH5mb++8GT\/UH1jx+hoJ4BgTngVrr57J+GPm+e17jUb7Skz3\/9n0HdpnQbZq7Z12aPWatRzwxY3dvRHs9TdA\/fhJkcczQko\/8UotwlxfnXvjZHUGZzgqPfvXwyeoJqK7PIQ+TRYgMMokAJ",
          "encoding":"base64",
          "height":20,
          "id":5,
@@ -46,7 +46,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJyVVUGOwyAMjJK2V7TtvZs39QPwlD3lHTyFp+xTdqhBnTgmsEiWIrA9xh4m03RcDuZhF9gVdqMzfIcHbIX54ndmyBUNCDPPJt\/pC9932IP8UUfAXviGLUatGgs+ycLmPBnLi1\/KZ08Y9qeV\/NGDgHoCzoIjbGfEM7buH+ex+gHMBOz0FIvwjReqn\/F6xv3zEnfoQ13wSXeJyfgR3\/G6xx2eL\/evh4ueJOAk3DHBP6KOeCv+TnrYjMVZ2BR2xevhtlbFXE767KRWc07\/wWXuV8y5wYu6WnPienq4mvs9zFKrOSeuh\/kwG3X0uM\/L4hu\/I66HZ7MZ2M7gCd1rpz+bzLD5jqyYnLdiaK1sYesZaO3IS+uQ1j7\/eSfB0koLe3QGzGOtfZzT0spp6uvYCC7n0Pdp5ezp2Agu53hRjze56y6nK\/Wc6dgoLud4fe785jPndCUWHFh5ti2N1tzj3s3C90NM0aNk7L25x2eL6kXF0fHcO9\/gX82v9n6cvJF89qtjnPAycQ5+v9y7WWo5aPos2rs745wj\/13rDdf1B3DA5SQ=",
+         "data":"eJyVVUGOwyAMREm3V1T13s2b+oHwlD3lHTyFp+xTdohBmTomsEhWI7BnjG2mzp2Xh62wG+wLdqczfIcnbIGtxe\/KgBUNChNnk+\/0KD5P8kceIf9+43c2ctVc8EkWN+NkrlX8Ut57yb5byB81CMgn4Cx44vZGPHPr+jGOVQ9wJnCnl1iEb7xR\/szXM67fKnGnOrjDZ8\/9Ifyx1Ih5h\/vL9evxoiYJPAl3TPCPyCPei7+XGjZjcRY2xV35erytVTnnizp7ydXs0394efYr59SYi7pafeJ8erx69nucJVezT5wPz8Nk5NGbfV7WvPE74ny4N5vB7Y05oXt96M8mPWy+Iysm41YOrZUtbt0DrR15aR3S2rce7yRYWmlxj\/aA51hrH2NaWulcX8dGeBlD36eF2dOxEV7GeFONN7nrB6Yv+Vzp2CgvY7yPO+\/zzJikUQv3tqXReva4dpPM+ymm4Cdjb589PptVLSqPjufarY35q\/hq78fLG8lnvzrGy1wmxuD3y7WbJJeTpk+ivR9njDnyv2u94br+AIX227E=",
          "encoding":"base64",
          "height":20,
          "id":3,
