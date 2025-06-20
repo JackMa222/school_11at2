@@ -15,4 +15,14 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="52">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="64">
+    <polygon points="0,0 5.375,0 6.25,0 0,-5.71875"/>
+   </object>
+   <object id="2" x="64" y="0">
+    <polygon points="0,0 0,6.01563 -5.73438,0"/>
+   </object>
+  </objectgroup>
+ </tile>
 </tileset>
