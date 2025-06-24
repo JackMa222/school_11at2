@@ -10,13 +10,13 @@ class LeaderboardManager:
         self.database_path = database_path
         
     def add_entry(self, username, score):
-        with sqlite3.connect(self.db_path) as db:
+        with sqlite3.connect(self.database_path) as db:
             # UTILSES CODE FROM 11AT1 2025
             cursor = db.cursor()
             
             cursor.execute("INSERT INTO leaderboard (score, username) VALUES (?, ?)", (score, username))
             
-            cursor.execute("SELECT COUNT(*) + 1 FROM leaderboard WHERE score > ?", (score))  
+            cursor.execute("SELECT COUNT(*) + 1 FROM leaderboard WHERE score > ?", (score,))  
             position = cursor.fetchone()[0]
             
             cursor.execute("SELECT COUNT(*) + 1 FROM leaderboard WHERE username = ? AND score > ?", (username, score))
@@ -53,7 +53,7 @@ class PersonalLeaderboard(Leaderboard):
     def get_top_scores(self, username):
         with self.get_connection() as db:
             cursor = db.cursor()
-            cursor.execute("SELECT score, username FROM leaderboard WHERE username = ? ORDER BY score DESC LIMIT 5", (username))
+            cursor.execute("SELECT score, username FROM leaderboard WHERE username = ? ORDER BY score DESC LIMIT 5", (username,))
             return cursor.fetchall()
 
 class GameView(arcade.View):
@@ -103,6 +103,12 @@ class GameView(arcade.View):
         self.is_live = False
         
         self.timer_text = None
+        
+        # TODO add user input
+        self.username = "Test1"
+        self.leaderboard_manager = LeaderboardManager()
+        self.finish_finished = False
+        
     
     def update_movement(self, delta_time):
         radians_angle = math.radians(self.player_sprite.angle)
@@ -156,6 +162,13 @@ class GameView(arcade.View):
             if self.level < self.max_level:
                 self.level += 1
                 self.setup()
+            elif self.level == self.max_level and self.finish_finished is False:
+                self.finish_finished = True
+                final_score = round(self.total_timer, 2)
+                position, personal_position = self.leaderboard_manager.add_entry(self.username, final_score)
+                
+                gl = GlobalLeaderboard()
+                gl.print_scores(gl.get_top_scores(self.username))
             
     def on_key_press(self, key, modifiers):
         # Resets the game/level

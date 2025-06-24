@@ -1,5 +1,5 @@
 CREATE TABLE leaderboard(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    score INTEGER NOT NULL,
+    score FLOAT NOT NULL,
     username TEXT
 );
