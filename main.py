@@ -1,8 +1,26 @@
 import arcade
 import math
+import sqlite3
 import time
 
 from CONSTANTS import *
+
+class Leaderboard:
+    def __init__(self, database_path="database.db"):
+        self.database_path = database_path
+    
+    def get_connection(self):
+        return sqlite3.connect(self.database_path)
+    
+    def get_top_scores(self, user_id=None):
+        raise NotImplementedError("Must be overrided in subclass (polymorphism)")
+    
+    def print_scores(self, scores):
+        ### DEBUG TOOL
+        if not scores:
+            print("No scores avaliable")
+        for i, (score, username) in enumerate(scores, 1):
+            print(f"#{i}: {username} ({score})")
 
 class GameView(arcade.View):
     """"
