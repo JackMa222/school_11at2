@@ -5,6 +5,26 @@ import time
 
 from CONSTANTS import *
 
+class LeaderboardManager:
+    def __init__(self, database_path="database.db"):
+        self.database_path = database_path
+        
+    def add_entry(self, username, score):
+        with sqlite3.connect(self.db_path) as db:
+            # UTILSES CODE FROM 11AT1 2025
+            cursor = db.cursor()
+            
+            cursor.execute("INSERT INTO leaderboard (score, username) VALUES (?, ?)", (score, username))
+            
+            cursor.execute("SELECT COUNT(*) + 1 FROM leaderboard WHERE score > ?", (score))  
+            position = cursor.fetchone()[0]
+            
+            cursor.execute("SELECT COUNT(*) + 1 FROM leaderboard WHERE username = ? AND score > ?", (username, score))
+            personal_position = cursor.fetchone()[0]
+        
+        return position, personal_position
+            
+
 class Leaderboard:
     def __init__(self, database_path="database.db"):
         self.database_path = database_path
@@ -33,7 +53,7 @@ class PersonalLeaderboard(Leaderboard):
     def get_top_scores(self, username):
         with self.get_connection() as db:
             cursor = db.cursor()
-            cursor.execute("SELECT score, username FROM leaderboard WHERE username = ? ORDER BY score DESC LIMIT 5", username)
+            cursor.execute("SELECT score, username FROM leaderboard WHERE username = ? ORDER BY score DESC LIMIT 5", (username))
             return cursor.fetchall()
 
 class GameView(arcade.View):
