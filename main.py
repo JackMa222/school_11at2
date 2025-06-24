@@ -91,7 +91,6 @@ class GameView(arcade.View):
             self.timer = time.time() - self.start_time
             self.timer_text.text = f"Time: {round(self.timer, 2)}"
             self.total_timer_text.text = f"Total Time: {round(self.timer, 2)}"
-            print(round(self.timer,2))
         
         if arcade.check_for_collision_with_list(self.player_sprite, self.finish_line_list):
             print("FINISH!", self.x)
@@ -99,7 +98,6 @@ class GameView(arcade.View):
             
             # End timer
             self.is_live = False
-            print(self.timer)
             
             if self.level < self.max_level:
                 self.level += 1
