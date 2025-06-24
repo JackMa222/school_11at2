@@ -12,7 +12,7 @@ class Leaderboard:
     def get_connection(self):
         return sqlite3.connect(self.database_path)
     
-    def get_top_scores(self, user_id=None):
+    def get_top_scores(self, username=None):
         raise NotImplementedError("Must be overrided in subclass (polymorphism)")
     
     def print_scores(self, scores):
@@ -21,6 +21,20 @@ class Leaderboard:
             print("No scores avaliable")
         for i, (score, username) in enumerate(scores, 1):
             print(f"#{i}: {username} ({score})")
+            
+class GlobalLeaderboard(Leaderboard):
+    def get_top_scores(self, username=None):
+        with self.get_connection() as db:
+            cursor = db.cursor()
+            cursor.execute("SELECT score, username FROM leaderboard ORDER BY score DESC LIMIT 5")
+            return cursor.fetchall()
+
+class PersonalLeaderboard(Leaderboard):
+    def get_top_scores(self, username):
+        with self.get_connection() as db:
+            cursor = db.cursor()
+            cursor.execute("SELECT score, username FROM leaderboard WHERE username = ? ORDER BY score DESC LIMIT 5", username)
+            return cursor.fetchall()
 
 class GameView(arcade.View):
     """"
