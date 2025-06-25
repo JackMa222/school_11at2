@@ -1,4 +1,5 @@
 import arcade
+from arcade.gui import UIManager, UIInputText
 import math
 import sqlite3
 import time
@@ -62,7 +63,7 @@ class GameView(arcade.View):
     """
     
     def __init__(self):
-        # Set up window using paretn class
+        # Set up window using parent class
         super().__init__()
         
         self.x = 0
@@ -156,8 +157,9 @@ class GameView(arcade.View):
             self.x += 1
             
             # End timer
-            self.is_live = False
-            self.total_timer += self.timer
+            if not self.finish_finished:
+                self.is_live = False
+                self.total_timer += self.timer
             
             if self.level < self.max_level:
                 self.level += 1
@@ -310,15 +312,42 @@ class GameView(arcade.View):
         self.timer_text.draw()
         self.level_text.draw()
         self.total_timer_text.draw()
+        
+class InstructionView(arcade.View):
+    def __init__(self):
+        super().__init__()
+        self.ui_manager = UIManager()
+        self.input_box = UIInputText(x=self.window.width // 2 - 100, y=self.window.height // 2 - 150, width=200)
+        self.ui_manager.add(self.input_box)
+        
     
+    def on_show_view(self):
+        self.window.background_color = arcade.csscolor.DARK_SLATE_BLUE
+        self.window.default_camera.use()
+        
+    def on_hide_view(self):
+        self.ui_manager.disable()
+        
+    def on_draw(self):
+        self.clear()
+        arcade.draw_text("Instructions Screen", self.window.width / 2, self.window.height / 2, arcade.color.WHITE, font_size=50, anchor_x="center")
+        arcade.draw_text("Click to advance", self.window.width / 2, self.window.height / 2-75, arcade.color.WHITE, font_size=20, anchor_x="center")
+        self.ui_manager.draw()
+        
+    def on_mouse_press(self, x, y, button, modifers):
+        if self.input_box.text:
+            game_view = GameView()
+            game_view.username = self.input_box.text
+            self.window.show_view(game_view)
+        
 def main():
     # Create window object
     window = arcade.Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE)
-    start_view = GameView()
+    start_view = InstructionView()
     window.show_view(start_view)
     
     # Run setup function for window
-    start_view.setup()
+    #start_view.setup()
     
     # Run the game using arcade
     arcade.run()
