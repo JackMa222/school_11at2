@@ -170,8 +170,8 @@ class GameView(arcade.View):
                 self.finish_finished = True
                 final_score = round(self.total_timer, 2)
                 
-                finish_view = FinishView()
-                finish_view.position, finish_view.personal_position = self.leaderboard_manager.add_entry(self.username, final_score)
+                position, personal_position = self.leaderboard_manager.add_entry(self.username, final_score)
+                finish_view = FinishView(position, personal_position)
                 self.window.show_view(finish_view)
             
     def on_key_press(self, key, modifiers):
@@ -318,13 +318,9 @@ class GameView(arcade.View):
 class InstructionView(arcade.View):
     def __init__(self):
         super().__init__()
-        self.ui_manager = UIManager()
         
         x_pos = self.window.width // 2
         y_pos = self.window.height // 2
-        
-        self.input_box = UIInputText(x=x_pos- 200, y=y_pos - 180, width=400, height=50, font_size=25)
-        self.ui_manager.add(self.input_box)
         
         self.texts = [
             arcade.Text("Racing Game (11AT2)", x_pos, y_pos, arcade.color.WHITE, font_size=50, anchor_x="center"),
@@ -337,16 +333,11 @@ class InstructionView(arcade.View):
     def on_show_view(self):
         self.window.background_color = arcade.csscolor.CORNFLOWER_BLUE
         self.window.default_camera.use()
-        self.ui_manager.enable()
-        
-    def on_hide_view(self):
-        self.ui_manager.disable()
         
     def on_draw(self):
         self.clear()
         for text in self.texts:
             text.draw()
-        self.ui_manager.draw()
         
     def on_mouse_press(self, x, y, button, modifers):
         if self.input_box.text:
@@ -356,10 +347,10 @@ class InstructionView(arcade.View):
             self.window.show_view(game_view)
             
 class FinishView(arcade.View):
-    def __init__(self):
+    def __init__(self, position, personal_position):
         super().__init__()
-        self.position = None
-        self.personal_position = None
+        self.position = position
+        self.personal_position = personal_position
         
         self.ui_manager = UIManager()
         
@@ -378,7 +369,7 @@ class FinishView(arcade.View):
         
     
     def on_show_view(self):
-        self.window.background_color = arcade.csscolor.CORNFLOWER_BLUE
+        self.window.background_color = arcade.csscolor.LIGHT_GREEN
         self.window.default_camera.use()
         self.ui_manager.enable()
         
