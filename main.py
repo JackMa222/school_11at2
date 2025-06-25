@@ -379,7 +379,7 @@ class FinishView(arcade.View):
         moving_y_offset -= 35
         global_leaderboard_list = global_leaderboard.get_scores_list(global_leaderboard.get_top_scores())
         for item in global_leaderboard_list:
-            self.texts.append(arcade.Text(item, x_pos + moving_y_offset, arcade.color.WHITE, font_size=20, anchor_x="center"))
+            self.texts.append(arcade.Text(item, x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=20, anchor_x="center"))
             moving_y_offset -= 30
         
         # Personal Leaderboard
