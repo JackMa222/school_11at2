@@ -319,8 +319,13 @@ class InstructionView(arcade.View):
     def __init__(self):
         super().__init__()
         
+        self.ui_manager = UIManager()
+        
         x_pos = self.window.width // 2
         y_pos = self.window.height // 2
+        
+        self.input_box = UIInputText(x=x_pos- 200, y=y_pos - 180, width=400, height=50, font_size=25)
+        self.ui_manager.add(self.input_box)
         
         self.texts = [
             arcade.Text("Racing Game (11AT2)", x_pos, y_pos, arcade.color.WHITE, font_size=50, anchor_x="center"),
@@ -333,11 +338,16 @@ class InstructionView(arcade.View):
     def on_show_view(self):
         self.window.background_color = arcade.csscolor.CORNFLOWER_BLUE
         self.window.default_camera.use()
+        self.ui_manager.enable()
+        
+    def on_hide_view(self):
+        self.ui_manager.disable()
         
     def on_draw(self):
         self.clear()
         for text in self.texts:
             text.draw()
+        self.ui_manager.draw()
         
     def on_mouse_press(self, x, y, button, modifers):
         if self.input_box.text:
@@ -352,35 +362,37 @@ class FinishView(arcade.View):
         self.position = position
         self.personal_position = personal_position
         
-        self.ui_manager = UIManager()
-        
         x_pos = self.window.width // 2
-        y_pos = self.window.height // 2
-        
-        self.input_box = UIInputText(x=x_pos- 200, y=y_pos - 180, width=400, height=50, font_size=25)
-        self.ui_manager.add(self.input_box)
+        y_pos = self.window.height // 2 + 300
         
         self.texts = [
             arcade.Text("Game over. Well done!", x_pos, y_pos, arcade.color.WHITE, font_size=50, anchor_x="center"),
             arcade.Text(f"Global position: {self.position}", x_pos, y_pos - 50, arcade.color.WHITE, font_size=20, anchor_x="center"),
             arcade.Text(f"Personal position: {self.personal_position}", x_pos, y_pos - 80, arcade.color.WHITE, font_size=20, anchor_x="center"),
-            arcade.Text("There are 10 levels to complete. Click on the screen to continue.", x_pos, y_pos - 110, arcade.color.WHITE, font_size=20, anchor_x="center")
         ]
+        
+        moving_y_offset = -120
+        
+        # Global Leader board
+        global_leaderboard = GlobalLeaderboard()
+        self.texts.append(arcade.Text("Global Leaderboard", x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=30, anchor_x="center"))
+        moving_y_offset -= 35
+        global_leaderboard_list = global_leaderboard.get_scores_list(global_leaderboard.get_top_scores())
+        for item in global_leaderboard_list:
+            self.texts.append(arcade.Text(item, x_pos + moving_y_offset, arcade.color.WHITE, font_size=20, anchor_x="center"))
+            moving_y_offset -= 30
+        
+        # Personal Leaderboard
         
     
     def on_show_view(self):
-        self.window.background_color = arcade.csscolor.LIGHT_GREEN
+        self.window.background_color = arcade.csscolor.SLATE_BLUE
         self.window.default_camera.use()
-        self.ui_manager.enable()
-        
-    def on_hide_view(self):
-        self.ui_manager.disable()
         
     def on_draw(self):
         self.clear()
         for text in self.texts:
             text.draw()
-        self.ui_manager.draw()
         
 def main():
     # Create window object
