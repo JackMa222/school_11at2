@@ -317,8 +317,19 @@ class InstructionView(arcade.View):
     def __init__(self):
         super().__init__()
         self.ui_manager = UIManager()
-        self.input_box = UIInputText(x=self.window.width // 2 - 200, y=self.window.height // 2 - 250, width=400, height=50, font_size=25)
+        
+        x_pos = self.window.width // 2
+        y_pos = self.window.height // 2
+        
+        self.input_box = UIInputText(x=x_pos- 200, y=y_pos - 130, width=400, height=50, font_size=25)
         self.ui_manager.add(self.input_box)
+        
+        self.texts = [
+            arcade.Text("Racing Game (11AT2)", x_pos, y_pos, arcade.color.WHITE, font_size=50, anchor_x="center"),
+            arcade.Text("Use WASD or arrow keys for movement, space to speed up (turbo),", x_pos, y_pos - 50, arcade.color.WHITE, font_size=20, anchor_x="center"),
+            arcade.Text("and escape to restart the level.", x_pos, y_pos - 80, arcade.color.WHITE, font_size=20, anchor_x="center"),
+            arcade.Text("There are 10 levels to complete. Click on the screen to continue.", x_pos, y_pos - 110, arcade.color.WHITE, font_size=20, anchor_x="center")
+        ]
         
     
     def on_show_view(self):
@@ -331,13 +342,8 @@ class InstructionView(arcade.View):
         
     def on_draw(self):
         self.clear()
-        arcade.draw_text("Racing Game (11AT2)", self.window.width / 2, (self.window.height / 2), arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("Use WASD or arrow keys for movement,", self.window.width / 2, self.window.height / 2-50, arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text("space to speed up (turbo),", self.window.width / 2, (self.window.height / 2-50) - 30, arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text("and escape to restart the level.", self.window.width / 2, (self.window.height / 2-50) - 60, arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text("There are 10 levels to complete.", self.window.width / 2, (self.window.height / 2-50) - 90, arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text("Please enter your username in the box below.", self.window.width / 2, (self.window.height / 2-50) - 120, arcade.color.WHITE, font_size=20, anchor_x="center")
-        arcade.draw_text("Click on the screen to continue.", self.window.width / 2, (self.window.height / 2-50) - 190, arcade.color.WHITE, font_size=20, anchor_x="center")
+        for text in self.texts:
+            text.draw()
         self.ui_manager.draw()
         
     def on_mouse_press(self, x, y, button, modifers):
