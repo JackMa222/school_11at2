@@ -317,27 +317,32 @@ class InstructionView(arcade.View):
     def __init__(self):
         super().__init__()
         self.ui_manager = UIManager()
-        self.input_box = UIInputText(x=self.window.width // 2 - 100, y=self.window.height // 2 - 150, width=200)
+        self.input_box = UIInputText(x=self.window.width // 2 - 100, y=self.window.height // 2 - 200, width=400, height=50, font_size=25)
         self.ui_manager.add(self.input_box)
         
     
     def on_show_view(self):
         self.window.background_color = arcade.csscolor.DARK_SLATE_BLUE
         self.window.default_camera.use()
+        self.ui_manager.enable()
         
     def on_hide_view(self):
         self.ui_manager.disable()
         
     def on_draw(self):
         self.clear()
-        arcade.draw_text("Instructions Screen", self.window.width / 2, self.window.height / 2, arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("Click to advance", self.window.width / 2, self.window.height / 2-75, arcade.color.WHITE, font_size=20, anchor_x="center")
+        arcade.draw_text("Racing Game (11AT2)", self.window.width / 2, (self.window.height / 2), arcade.color.WHITE, font_size=50, anchor_x="center")
+        arcade.draw_text("Use WASD or arrow keys for movement,", self.window.width / 2, self.window.height / 2-50, arcade.color.WHITE, font_size=20, anchor_x="center")
+        arcade.draw_text("space to speed up (turbo),", self.window.width / 2, (self.window.height / 2-50) - 30, arcade.color.WHITE, font_size=20, anchor_x="center")
+        arcade.draw_text("and escape to restart the level.", self.window.width / 2, (self.window.height / 2-50) - 60, arcade.color.WHITE, font_size=20, anchor_x="center")
+        arcade.draw_text("There are 10 levels to complete.", self.window.width / 2, (self.window.height / 2-50) - 90, arcade.color.WHITE, font_size=20, anchor_x="center")
         self.ui_manager.draw()
         
     def on_mouse_press(self, x, y, button, modifers):
         if self.input_box.text:
             game_view = GameView()
             game_view.username = self.input_box.text
+            game_view.setup()
             self.window.show_view(game_view)
         
 def main():
