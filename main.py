@@ -317,12 +317,12 @@ class InstructionView(arcade.View):
     def __init__(self):
         super().__init__()
         self.ui_manager = UIManager()
-        self.input_box = UIInputText(x=self.window.width // 2 - 100, y=self.window.height // 2 - 200, width=400, height=50, font_size=25)
+        self.input_box = UIInputText(x=self.window.width // 2 - 200, y=self.window.height // 2 - 250, width=400, height=50, font_size=25)
         self.ui_manager.add(self.input_box)
         
     
     def on_show_view(self):
-        self.window.background_color = arcade.csscolor.DARK_SLATE_BLUE
+        self.window.background_color = arcade.csscolor.CORNFLOWER_BLUE
         self.window.default_camera.use()
         self.ui_manager.enable()
         
@@ -336,6 +336,8 @@ class InstructionView(arcade.View):
         arcade.draw_text("space to speed up (turbo),", self.window.width / 2, (self.window.height / 2-50) - 30, arcade.color.WHITE, font_size=20, anchor_x="center")
         arcade.draw_text("and escape to restart the level.", self.window.width / 2, (self.window.height / 2-50) - 60, arcade.color.WHITE, font_size=20, anchor_x="center")
         arcade.draw_text("There are 10 levels to complete.", self.window.width / 2, (self.window.height / 2-50) - 90, arcade.color.WHITE, font_size=20, anchor_x="center")
+        arcade.draw_text("Please enter your username in the box below.", self.window.width / 2, (self.window.height / 2-50) - 120, arcade.color.WHITE, font_size=20, anchor_x="center")
+        arcade.draw_text("Click on the screen to continue.", self.window.width / 2, (self.window.height / 2-50) - 190, arcade.color.WHITE, font_size=20, anchor_x="center")
         self.ui_manager.draw()
         
     def on_mouse_press(self, x, y, button, modifers):
