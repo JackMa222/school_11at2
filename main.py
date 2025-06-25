@@ -49,14 +49,14 @@ class GlobalLeaderboard(Leaderboard):
     def get_top_scores(self, username=None):
         with self.get_connection() as db:
             cursor = db.cursor()
-            cursor.execute("SELECT score, username FROM leaderboard ORDER BY score DESC LIMIT 5")
+            cursor.execute("SELECT score, username FROM leaderboard ORDER BY score ASC LIMIT 5")
             return cursor.fetchall()
 
 class PersonalLeaderboard(Leaderboard):
     def get_top_scores(self, username):
         with self.get_connection() as db:
             cursor = db.cursor()
-            cursor.execute("SELECT score, username FROM leaderboard WHERE username = ? ORDER BY score DESC LIMIT 5", (username,))
+            cursor.execute("SELECT score, username FROM leaderboard WHERE username = ? ORDER BY score ASC LIMIT 5", (username,))
             return cursor.fetchall()
 
 class GameView(arcade.View):
@@ -154,10 +154,7 @@ class GameView(arcade.View):
             self.timer_text.text = f"Time: {round(self.timer, 2)}"
             self.total_timer_text.text = f"Total Time: {round(self.total_timer + self.timer, 2)}"
         
-        if arcade.check_for_collision_with_list(self.player_sprite, self.finish_line_list):
-            print("FINISH!", self.x)
-            self.x += 1
-            
+        if arcade.check_for_collision_with_list(self.player_sprite, self.finish_line_list):            
             # End timer
             if not self.finish_finished:
                 self.is_live = False
@@ -171,7 +168,7 @@ class GameView(arcade.View):
                 final_score = round(self.total_timer, 2)
                 
                 position, personal_position = self.leaderboard_manager.add_entry(self.username, final_score)
-                finish_view = FinishView(position, personal_position)
+                finish_view = FinishView(position, personal_position, self.username)
                 self.window.show_view(finish_view)
             
     def on_key_press(self, key, modifiers):
@@ -357,10 +354,11 @@ class InstructionView(arcade.View):
             self.window.show_view(game_view)
             
 class FinishView(arcade.View):
-    def __init__(self, position, personal_position):
+    def __init__(self, position, personal_position, username):
         super().__init__()
         self.position = position
         self.personal_position = personal_position
+        self.username = username
         
         x_pos = self.window.width // 2
         y_pos = self.window.height // 2 + 300
@@ -375,14 +373,22 @@ class FinishView(arcade.View):
         
         # Global Leader board
         global_leaderboard = GlobalLeaderboard()
+        moving_y_offset -= 20
         self.texts.append(arcade.Text("Global Leaderboard", x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=30, anchor_x="center"))
-        moving_y_offset -= 35
         global_leaderboard_list = global_leaderboard.get_scores_list(global_leaderboard.get_top_scores())
         for item in global_leaderboard_list:
-            self.texts.append(arcade.Text(item, x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=20, anchor_x="center"))
             moving_y_offset -= 30
+            self.texts.append(arcade.Text(item, x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=20, anchor_x="center"))
         
         # Personal Leaderboard
+        personal_leaderboard = PersonalLeaderboard()
+        moving_y_offset -= 50
+        self.texts.append(arcade.Text(f"Personal Leaderboard for username: {self.username}", x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=30, anchor_x="center"))
+        personal_leaderboard_list = personal_leaderboard.get_scores_list(personal_leaderboard.get_top_scores(self.username))
+        for item in personal_leaderboard_list:
+            moving_y_offset -= 30
+            self.texts.append(arcade.Text(item, x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=20, anchor_x="center"))
+            
         
     
     def on_show_view(self):
