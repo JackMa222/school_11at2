@@ -345,13 +345,20 @@ class InstructionView(arcade.View):
         for text in self.texts:
             text.draw()
         self.ui_manager.draw()
-        
-    def on_mouse_press(self, x, y, button, modifers):
+    
+    def progress_to_game(self):
         if self.input_box.text:
             game_view = GameView()
             game_view.username = self.input_box.text
             game_view.setup()
             self.window.show_view(game_view)
+            
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.ENTER or key == arcade.key.RETURN:
+            self.progress_to_game()
+        
+    def on_mouse_press(self, x, y, button, modifers):
+       self.progress_to_game()
             
 class FinishView(arcade.View):
     def __init__(self, position, personal_position, username):
@@ -389,8 +396,6 @@ class FinishView(arcade.View):
             moving_y_offset -= 30
             self.texts.append(arcade.Text(item, x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=20, anchor_x="center"))
             
-        
-    
     def on_show_view(self):
         self.window.background_color = arcade.csscolor.SLATE_BLUE
         self.window.default_camera.use()
