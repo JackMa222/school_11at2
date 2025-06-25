@@ -327,7 +327,7 @@ class InstructionView(arcade.View):
         self.texts = [
             arcade.Text("Racing Game (11AT2)", x_pos, y_pos, arcade.color.WHITE, font_size=50, anchor_x="center"),
             arcade.Text("Use WASD or arrow keys for movement, space to speed up (turbo),", x_pos, y_pos - 50, arcade.color.WHITE, font_size=20, anchor_x="center"),
-            arcade.Text("and escape to restart the level.", x_pos, y_pos - 80, arcade.color.WHITE, font_size=20, anchor_x="center"),
+            arcade.Text("and escape to restart the level. Your score is the total time it takes to complete all levels.", x_pos, y_pos - 80, arcade.color.WHITE, font_size=20, anchor_x="center"),
             arcade.Text("There are 10 levels to complete. Click on the screen to continue.", x_pos, y_pos - 110, arcade.color.WHITE, font_size=20, anchor_x="center")
         ]
         
