@@ -36,12 +36,14 @@ class Leaderboard:
     def get_top_scores(self, username=None):
         raise NotImplementedError("Must be overrided in subclass (polymorphism)")
     
-    def print_scores(self, scores):
+    def get_scores_list(self, scores):
         ### DEBUG TOOL
         if not scores:
             print("No scores avaliable")
+        scores_list = []
         for i, (score, username) in enumerate(scores, 1):
-            print(f"#{i}: {username} ({score})")
+            scores_list.append(f"#{i}: {username} ({score})")
+        return scores_list
             
 class GlobalLeaderboard(Leaderboard):
     def get_top_scores(self, username=None):
@@ -167,10 +169,10 @@ class GameView(arcade.View):
             elif self.level == self.max_level and self.finish_finished is False:
                 self.finish_finished = True
                 final_score = round(self.total_timer, 2)
-                position, personal_position = self.leaderboard_manager.add_entry(self.username, final_score)
                 
-                gl = GlobalLeaderboard()
-                gl.print_scores(gl.get_top_scores(self.username))
+                finish_view = FinishView()
+                finish_view.position, finish_view.personal_position = self.leaderboard_manager.add_entry(self.username, final_score)
+                self.window.show_view(finish_view)
             
     def on_key_press(self, key, modifiers):
         # Resets the game/level
@@ -321,7 +323,7 @@ class InstructionView(arcade.View):
         x_pos = self.window.width // 2
         y_pos = self.window.height // 2
         
-        self.input_box = UIInputText(x=x_pos- 200, y=y_pos - 130, width=400, height=50, font_size=25)
+        self.input_box = UIInputText(x=x_pos- 200, y=y_pos - 180, width=400, height=50, font_size=25)
         self.ui_manager.add(self.input_box)
         
         self.texts = [
@@ -352,6 +354,42 @@ class InstructionView(arcade.View):
             game_view.username = self.input_box.text
             game_view.setup()
             self.window.show_view(game_view)
+            
+class FinishView(arcade.View):
+    def __init__(self):
+        super().__init__()
+        self.position = None
+        self.personal_position = None
+        
+        self.ui_manager = UIManager()
+        
+        x_pos = self.window.width // 2
+        y_pos = self.window.height // 2
+        
+        self.input_box = UIInputText(x=x_pos- 200, y=y_pos - 180, width=400, height=50, font_size=25)
+        self.ui_manager.add(self.input_box)
+        
+        self.texts = [
+            arcade.Text("Game over. Well done!", x_pos, y_pos, arcade.color.WHITE, font_size=50, anchor_x="center"),
+            arcade.Text(f"Global position: {self.position}", x_pos, y_pos - 50, arcade.color.WHITE, font_size=20, anchor_x="center"),
+            arcade.Text(f"Personal position: {self.personal_position}", x_pos, y_pos - 80, arcade.color.WHITE, font_size=20, anchor_x="center"),
+            arcade.Text("There are 10 levels to complete. Click on the screen to continue.", x_pos, y_pos - 110, arcade.color.WHITE, font_size=20, anchor_x="center")
+        ]
+        
+    
+    def on_show_view(self):
+        self.window.background_color = arcade.csscolor.CORNFLOWER_BLUE
+        self.window.default_camera.use()
+        self.ui_manager.enable()
+        
+    def on_hide_view(self):
+        self.ui_manager.disable()
+        
+    def on_draw(self):
+        self.clear()
+        for text in self.texts:
+            text.draw()
+        self.ui_manager.draw()
         
 def main():
     # Create window object
