@@ -131,8 +131,9 @@ class GameView(arcade.View):
         self.camera.position = self.player_sprite.position
         
         if self.countdown_active:
-            self.total_timer_text.text = f"Total Time: {round(self.total_timer + self.timer, 2)}"
-            self.timer_text = f"Time: 0.00"
+            self.timer = 0
+            self.total_timer_text.text = f"Total Time: {round(self.total_timer, 2)}"
+            self.timer_text = arcade.Text(f"Time: {round(self.timer, 2)}", x = 16, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
             
             self.countdown -= delta_time
             if self.countdown <= 0:
