@@ -131,6 +131,9 @@ class GameView(arcade.View):
         self.camera.position = self.player_sprite.position
         
         if self.countdown_active:
+            self.total_timer_text.text = f"Total Time: {round(self.total_timer + self.timer, 2)}"
+            self.timer_text = f"Time: 0.00"
+            
             self.countdown -= delta_time
             if self.countdown <= 0:
                 self.countdown_active = False
@@ -163,8 +166,6 @@ class GameView(arcade.View):
         if self.is_live:
             self.timer = time.time() - self.start_time
             self.timer_text.text = f"Time: {round(self.timer, 2)}"
-            self.total_timer_text.text = f"Total Time: {round(self.total_timer + self.timer, 2)}"
-        else:
             self.total_timer_text.text = f"Total Time: {round(self.total_timer + self.timer, 2)}"
         
         if arcade.check_for_collision_with_list(self.player_sprite, self.finish_line_list):            
