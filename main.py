@@ -106,11 +106,13 @@ class GameView(arcade.View):
         self.is_live = False
         
         self.timer_text = None
-        
-        # TODO add user input
-        self.username = "Test1"
+        self.username = None
         self.leaderboard_manager = LeaderboardManager()
         self.finish_finished = False
+        
+        # Level 3, 2, 1 Countdown
+        self.countdown = 0
+        self.countdown_active = False
         
     
     def update_movement(self, delta_time):
@@ -126,10 +128,19 @@ class GameView(arcade.View):
             self.player_sprite.change_y = 0
         
     def on_update(self, delta_time):
+        self.camera.position = self.player_sprite.position
+        
+        if self.countdown_active:
+            self.countdown -= delta_time
+            if self.countdown <= 0:
+                self.countdown_active = False
+                self.is_live = True
+                self.start_time = time.time()
+            return
+        
         # Physics engine update related properties
         self.physics_engine.update()
         # Center camera to player
-        self.camera.position = self.player_sprite.position
         
         # Update movement
         self.update_movement(delta_time)
@@ -288,6 +299,10 @@ class GameView(arcade.View):
         # TODO actually have total time
         self.total_timer_text = arcade.Text(f"Total Time: {round(self.timer, 2)}", x = 16+64*11, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
         
+        self.countdown = 3
+        self.countdown_active = True
+        self.is_live = False
+        
     def on_draw(self):
         # TODO add comments
         # Clears the window with the configured background color set
@@ -311,6 +326,11 @@ class GameView(arcade.View):
         self.timer_text.draw()
         self.level_text.draw()
         self.total_timer_text.draw()
+        
+        if self.countdown_active:
+            countdown_number = int(self.countdown) + 1 if self.countdown > 0 else 1
+            countdown_text = arcade.Text(str(countdown_number), self.window.width // 2, self.window.height //2, arcade.types.Color(18, 154, 76, 255), font_size=120, anchor_x="center", anchor_y="center", bold=True, font_outline_color=arcade.color.WHITE, font_outline_width=4)
+            countdown_text.draw()
         
 class InstructionView(arcade.View):
     def __init__(self):
