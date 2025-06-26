@@ -129,7 +129,7 @@ class GameView(arcade.View):
         
     def on_update(self, delta_time):
         self.camera.position = self.player_sprite.position
-        
+        # TODO fix clunky countdowns
         if self.countdown_active:
             self.timer = 0
             self.total_timer_text.text = f"Total Time: {round(self.total_timer, 2)}"
