@@ -164,6 +164,8 @@ class GameView(arcade.View):
             self.timer = time.time() - self.start_time
             self.timer_text.text = f"Time: {round(self.timer, 2)}"
             self.total_timer_text.text = f"Total Time: {round(self.total_timer + self.timer, 2)}"
+        else:
+            self.total_timer_text.text = f"Total Time: {round(self.total_timer + self.timer, 2)}"
         
         if arcade.check_for_collision_with_list(self.player_sprite, self.finish_line_list):            
             # End timer
