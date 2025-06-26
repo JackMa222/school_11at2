@@ -349,7 +349,7 @@ class InstructionView(arcade.View):
     def progress_to_game(self):
         if self.input_box.text:
             game_view = GameView()
-            game_view.username = self.input_box.text
+            game_view.username = self.input_box.text.title()
             game_view.setup()
             self.window.show_view(game_view)
             
