@@ -329,7 +329,7 @@ class GameView(arcade.View):
         
         if self.countdown_active:
             countdown_number = int(self.countdown) + 1 if self.countdown > 0 else 1
-            countdown_text = arcade.Text(str(countdown_number), self.window.width // 2, self.window.height //2, arcade.types.Color(18, 154, 76, 255), font_size=120, anchor_x="center", anchor_y="center", bold=True, font_outline_color=arcade.color.WHITE, font_outline_width=4)
+            countdown_text = arcade.Text(str(countdown_number), self.window.width // 2, self.window.height //2, arcade.types.Color(18, 154, 76, 255), font_size=120, anchor_x="center", anchor_y="center", bold=True)
             countdown_text.draw()
         
 class InstructionView(arcade.View):
