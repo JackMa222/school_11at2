@@ -67,9 +67,7 @@ class GameView(arcade.View):
     def __init__(self):
         # Set up window using parent class
         super().__init__()
-        
-        self.x = 0
-        
+               
         # Set up class variables
         # Player
         self.player_texture = None
@@ -290,6 +288,7 @@ class GameView(arcade.View):
             self.player_sprite, walls=self.scene["Walls"]
         )
         
+        # TODO probably can remove these with new countdown function
         self.start_time = time.time()
         self.is_live = True
         
@@ -400,11 +399,10 @@ class FinishView(arcade.View):
             arcade.Text(f"Personal position: {self.personal_position}", x_pos, y_pos - 80, arcade.color.WHITE, font_size=20, anchor_x="center"),
         ]
         
-        moving_y_offset = -120
+        moving_y_offset = -140
         
         # Global Leader board
         global_leaderboard = GlobalLeaderboard()
-        moving_y_offset -= 20
         self.texts.append(arcade.Text("Global Leaderboard", x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=30, anchor_x="center"))
         global_leaderboard_list = global_leaderboard.get_scores_list(global_leaderboard.get_top_scores())
         for item in global_leaderboard_list:
@@ -443,4 +441,3 @@ def main():
         
 if __name__ == "__main__":
     main()
-        
