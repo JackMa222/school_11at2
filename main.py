@@ -47,17 +47,23 @@ class LeaderboardManager:
             
 
 class Leaderboard:
+    """
+        Abstract leaderboard class used for both global and personal leaderboards
+    """
     def __init__(self, database_path="database.db"):
+        # Path to SQLITE database file (in this case database.db)
         self.database_path = database_path
     
+    # Opens database connection
     def get_connection(self):
         return sqlite3.connect(self.database_path)
     
+    # Enforce polymorphism subclass implementaitons for fetching scores
     def get_top_scores(self, username=None):
         raise NotImplementedError("Must be overrided in subclass (polymorphism)")
     
+    # Converts list of (score, username) tuples from the database into formatted ledaerboard strings
     def get_scores_list(self, scores):
-        ### DEBUG TOOL
         if not scores:
             print("No scores avaliable")
         scores_list = []
@@ -65,17 +71,21 @@ class Leaderboard:
             scores_list.append(f"#{i}: {username} ({score})")
         return scores_list
             
+# Class to fetch global leaderboard scores. Inherits from Leaderboard
 class GlobalLeaderboard(Leaderboard):
     def get_top_scores(self, username=None):
         with self.get_connection() as db:
             cursor = db.cursor()
+            # Select top 5 scores regardless of username (global)
             cursor.execute("SELECT score, username FROM leaderboard ORDER BY score ASC LIMIT 5")
             return cursor.fetchall()
 
+# Class to fetch global leaderboard scores. Inherits from Leaderboard
 class PersonalLeaderboard(Leaderboard):
     def get_top_scores(self, username):
         with self.get_connection() as db:
             cursor = db.cursor()
+            # Select top 5 scores for a specific user (personal)
             cursor.execute("SELECT score, username FROM leaderboard WHERE username = ? ORDER BY score ASC LIMIT 5", (username,))
             return cursor.fetchall()
 
