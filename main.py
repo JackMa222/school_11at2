@@ -398,7 +398,7 @@ class InstructionView(arcade.View):
         y_pos = self.window.height // 2
         
         # Create input box for the players name
-        self.input_box = UIInputText(x=x_pos- 200, y=y_pos - 180, width=400, height=50, font_size=25)
+        self.input_box = UIInputText(x=x_pos- 200, y=y_pos - 210, width=400, height=50, font_size=25)
         self.ui_manager.add(self.input_box)
         
         # Assign instructional text to list
@@ -406,7 +406,8 @@ class InstructionView(arcade.View):
             arcade.Text("Racing Game (11AT2)", x_pos, y_pos, arcade.color.WHITE, font_size=50, anchor_x="center"),
             arcade.Text("Use WASD or arrow keys for movement, space to speed up (turbo),", x_pos, y_pos - 50, arcade.color.WHITE, font_size=20, anchor_x="center"),
             arcade.Text("and escape to restart the level. Your score is the total time it takes to complete all levels.", x_pos, y_pos - 80, arcade.color.WHITE, font_size=20, anchor_x="center"),
-            arcade.Text("There are 10 levels to complete. Click on the screen to continue.", x_pos, y_pos - 110, arcade.color.WHITE, font_size=20, anchor_x="center")
+            arcade.Text("There are 10 levels to complete. Enter you username in the box below.", x_pos, y_pos - 110, arcade.color.WHITE, font_size=20, anchor_x="center"),
+            arcade.Text("Click on the screen to continue.", x_pos, y_pos - 140, arcade.color.WHITE, font_size=20, anchor_x="center")
         ]
         
     def on_show_view(self):
