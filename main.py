@@ -448,22 +448,27 @@ class FinishView(arcade.View):
         # Call the parent class constructor
         super().__init__()
         
+        # Store the players global and personal leaderboard positions and username
         self.position = position
         self.personal_position = personal_position
         self.username = username
         
+        # Calculate base / starting positions for displaying text
         x_pos = self.window.width // 2
         y_pos = self.window.height // 2 + 300
         
+        # Setup intial result text in list
         self.texts = [
             arcade.Text("Game over. Well done!", x_pos, y_pos, arcade.color.WHITE, font_size=50, anchor_x="center"),
             arcade.Text(f"Global position: {self.position}", x_pos, y_pos - 50, arcade.color.WHITE, font_size=20, anchor_x="center"),
             arcade.Text(f"Personal position: {self.personal_position}", x_pos, y_pos - 80, arcade.color.WHITE, font_size=20, anchor_x="center"),
         ]
         
+        # Offset to space out leaderboard entries
         moving_y_offset = -140
         
-        # Global Leader board
+        # Global Leaderboard section
+        # Display a title and then the top 5 results (if they exist) of all time
         global_leaderboard = GlobalLeaderboard()
         self.texts.append(arcade.Text("Global Leaderboard", x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=30, anchor_x="center"))
         global_leaderboard_list = global_leaderboard.get_scores_list(global_leaderboard.get_top_scores())
@@ -471,7 +476,8 @@ class FinishView(arcade.View):
             moving_y_offset -= 30
             self.texts.append(arcade.Text(item, x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=20, anchor_x="center"))
         
-        # Personal Leaderboard
+        # Personal Leaderboard section
+        # Display a title and then the top 5 results (if they exist) for this user
         personal_leaderboard = PersonalLeaderboard()
         moving_y_offset -= 50
         self.texts.append(arcade.Text(f"Personal Leaderboard for username: {self.username}", x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=30, anchor_x="center"))
@@ -481,10 +487,12 @@ class FinishView(arcade.View):
             self.texts.append(arcade.Text(item, x_pos, y_pos + moving_y_offset, arcade.color.WHITE, font_size=20, anchor_x="center"))
             
     def on_show_view(self):
+        # Set background and reset/designate camera when the view is shown
         self.window.background_color = arcade.csscolor.SLATE_BLUE
         self.window.default_camera.use()
         
     def on_draw(self):
+        # Clear the screen and draw all text elements
         self.clear()
         for text in self.texts:
             text.draw()
@@ -492,7 +500,10 @@ class FinishView(arcade.View):
 def main():
     # Create window object
     window = arcade.Window(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE)
+    # Instantiate InstructionView
     start_view = InstructionView()
+    
+    # Show starting instruction view
     window.show_view(start_view)
     
     # Run setup function for window
@@ -502,4 +513,5 @@ def main():
     arcade.run()
         
 if __name__ == "__main__":
+    # Run the main function if the program file itself is run
     main()
