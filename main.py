@@ -130,12 +130,15 @@ class GameView(arcade.View):
         self.timer = 0
         self.total_timer = 0
         
-        # Boolean if map is running or not
+        # Boolean if map is running or not (live state control)
         self.is_live = False
         
+        # Text object + usernames + leaderboard for scores
         self.timer_text = None
         self.username = None
         self.leaderboard_manager = LeaderboardManager()
+        
+        # Bool if player has finish the whole game
         self.finish_finished = False
         
         # Level 3, 2, 1 Countdown
@@ -144,6 +147,7 @@ class GameView(arcade.View):
         
     
     def update_movement(self, delta_time):
+        # Update movement vector based on current angle and direction and movement control variables/flags
         radians_angle = math.radians(self.player_sprite.angle)
         if self.moving_forward:
             self.player_sprite.change_x = self.player_movement_speed * math.sin(radians_angle) * delta_time
@@ -156,8 +160,10 @@ class GameView(arcade.View):
             self.player_sprite.change_y = 0
         
     def on_update(self, delta_time):
+        # Update camera to follow the player
         self.camera.position = self.player_sprite.position
-        # TODO fix clunky countdowns
+        
+        # Handle countdown before the race starts
         if self.countdown_active:
             self.timer = 0
             self.total_timer_text.text = f"Total Score: {round(self.total_timer, 2)}"
@@ -172,7 +178,6 @@ class GameView(arcade.View):
         
         # Physics engine update related properties
         self.physics_engine.update()
-        # Center camera to player
         
         # Update movement
         self.update_movement(delta_time)
@@ -203,15 +208,25 @@ class GameView(arcade.View):
                 self.is_live = False
                 self.total_timer += self.timer
             
+            # If not the last level, progress to next level
             if self.level < self.max_level:
                 self.level += 1
                 self.setup()
             elif self.level == self.max_level and self.finish_finished is False:
+                # This means it is the last level
+                # Thus set bool to declare all levels have been completed
                 self.finish_finished = True
+                
+                # Get final score rounded to 2 decimal places
                 final_score = round(self.total_timer, 2)
                 
+                # Get position and personal position while adding score/username entry to database
                 position, personal_position = self.leaderboard_manager.add_entry(self.username, final_score)
+                
+                # Instantiate FinishView
                 finish_view = FinishView(position, personal_position, self.username)
+                
+                # Show finish view
                 self.window.show_view(finish_view)
             
     def on_key_press(self, key, modifiers):
@@ -367,6 +382,7 @@ class GameView(arcade.View):
         
 class InstructionView(arcade.View):
     def __init__(self):
+        # Call the initalising 'parent constructor'
         super().__init__()
         
         self.ui_manager = UIManager()
