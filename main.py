@@ -251,6 +251,9 @@ class GameView(arcade.View):
             # Ability to increase speed on space press
             if IS_TURBO:
                 self.player_movement_speed = PLAYER_TURBO_MOVEMENT_SPEED
+                
+        # Debug statements to skip levels
+        # Is disabled in production using constants i.e. LEVEL_DEBUG_SKIP
         elif key == arcade.key.N and LEVEL_DEBUG_SKIP:
             self.is_live = False            
             if self.level < self.max_level:
