@@ -2,7 +2,7 @@
 This project is a simple racing game made for an assignment. It has fairly basic features and features 10 maps.
 
 ## Setting up the project
-To run the project locally, follow these steps to createa virtual envrionemt and install all required dependencies.
+To run the project locally, follow these steps to create a virtual environment and install all required dependencies.
 
 ### 1. Clone this repository or download code using zip file
 ```bash
@@ -10,7 +10,7 @@ git clone https://github.com/JackMa222/school_11at2.git
 cd school11_at2
 ```
 
-### 2. Create a Virtual Envrionemtn
+### 2. Create a Virtual environment
 ```bash
 python -m venv venv
 ```
