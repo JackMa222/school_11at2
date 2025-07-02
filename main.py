@@ -1,28 +1,48 @@
+# Import necessary libraries
 import arcade
 from arcade.gui import UIManager, UIInputText
 import math
 import sqlite3
 import time
 
+# Import defined constants from CONSTANTS.py
 from CONSTANTS import *
 
 class LeaderboardManager:
+    """
+        Handles inserting new leaderboard entries and calculating rankings
+    """
     def __init__(self, database_path="database.db"):
+        # Path to SQLITE database file (in this case database.db)
         self.database_path = database_path
         
     def add_entry(self, username, score):
+        """_summary_
+
+        Args:
+            username (string): The user's username for this attempt
+            score (float): The final score of the usernames attempt
+
+        Returns:
+            position (int): The global ranking position of the user on the leaderboard
+            personal_position (int): The individual ranking position of the user on their individual leaderboard
+        """
         with sqlite3.connect(self.database_path) as db:
             # UTILSES CODE FROM 11AT1 2025
             cursor = db.cursor()
             
+            # Insert the new score + username into the leaderboard table
             cursor.execute("INSERT INTO leaderboard (score, username) VALUES (?, ?)", (score, username))
             
+            # Calculate this scores 'global position', i.e. how many players have a better score
             cursor.execute("SELECT COUNT(*) + 1 FROM leaderboard WHERE score > ?", (score,))  
             position = cursor.fetchone()[0]
             
+            # Calculate this scores 'personal position', i.e. how many of their previous attempts have a better score
             cursor.execute("SELECT COUNT(*) + 1 FROM leaderboard WHERE username = ? AND score > ?", (username, score))
             personal_position = cursor.fetchone()[0]
         
+        # Return both global and personal positions
         return position, personal_position
             
 
