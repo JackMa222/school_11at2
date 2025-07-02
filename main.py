@@ -130,8 +130,8 @@ class GameView(arcade.View):
         # TODO fix clunky countdowns
         if self.countdown_active:
             self.timer = 0
-            self.total_timer_text.text = f"Total Time: {round(self.total_timer, 2)}"
-            self.timer_text = arcade.Text(f"Time: {round(self.timer, 2)}", x = 16, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
+            self.total_timer_text.text = f"Total Score: {round(self.total_timer, 2)}"
+            self.timer_text = arcade.Text(f"Level Score: {round(self.timer, 2)}", x = 16, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
             
             self.countdown -= delta_time
             if self.countdown <= 0:
@@ -164,8 +164,8 @@ class GameView(arcade.View):
         # If so update timer
         if self.is_live:
             self.timer = time.time() - self.start_time
-            self.timer_text.text = f"Time: {round(self.timer, 2)}"
-            self.total_timer_text.text = f"Total Time: {round(self.total_timer + self.timer, 2)}"
+            self.timer_text.text = f"Level Score: {round(self.timer, 2)}"
+            self.total_timer_text.text = f"Total Score: {round(self.total_timer + self.timer, 2)}"
         
         if arcade.check_for_collision_with_list(self.player_sprite, self.finish_line_list):            
             # End timer
@@ -293,14 +293,14 @@ class GameView(arcade.View):
         self.is_live = True
         
         # Score text
-        self.timer_text = arcade.Text(f"Time: {round(self.timer, 2)}", x = 16, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
+        self.timer_text = arcade.Text(f"Level Score: {round(self.timer, 2)}", x = 16, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
         
         # Map/Level Text
-        self.level_text = arcade.Text(f"Level: {self.level}", x = 16+64*6, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
+        self.level_text = arcade.Text(f"Level: {self.level}", x = 16+64*7, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
         
         # Total time text
         # TODO actually have total time
-        self.total_timer_text = arcade.Text(f"Total Time: {round(self.timer, 2)}", x = 16+64*11, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
+        self.total_timer_text = arcade.Text(f"Total Score: {round(self.timer, 2)}", x = 16+64*11, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
         
         self.countdown = 3
         self.countdown_active = True
