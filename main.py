@@ -390,14 +390,18 @@ class InstructionView(arcade.View):
         # Call the initalising 'parent constructor'
         super().__init__()
         
+        # Create UI manager for text input
         self.ui_manager = UIManager()
         
+        # Determine centre positions for screen elements
         x_pos = self.window.width // 2
         y_pos = self.window.height // 2
         
+        # Create input box for the players name
         self.input_box = UIInputText(x=x_pos- 200, y=y_pos - 180, width=400, height=50, font_size=25)
         self.ui_manager.add(self.input_box)
         
+        # Assign instructional text to list
         self.texts = [
             arcade.Text("Racing Game (11AT2)", x_pos, y_pos, arcade.color.WHITE, font_size=50, anchor_x="center"),
             arcade.Text("Use WASD or arrow keys for movement, space to speed up (turbo),", x_pos, y_pos - 50, arcade.color.WHITE, font_size=20, anchor_x="center"),
@@ -405,22 +409,25 @@ class InstructionView(arcade.View):
             arcade.Text("There are 10 levels to complete. Click on the screen to continue.", x_pos, y_pos - 110, arcade.color.WHITE, font_size=20, anchor_x="center")
         ]
         
-    
     def on_show_view(self):
+        # Set background color and enable UI elemtns + camera
         self.window.background_color = arcade.csscolor.CORNFLOWER_BLUE
         self.window.default_camera.use()
         self.ui_manager.enable()
         
     def on_hide_view(self):
+        # Disable UI manager when view is hidden
         self.ui_manager.disable()
         
     def on_draw(self):
+        # Clear the screen, draw instructional text + input box (in UI manager)
         self.clear()
         for text in self.texts:
             text.draw()
         self.ui_manager.draw()
     
     def progress_to_game(self):
+        # If a username is entered, start the game and pass the username
         if self.input_box.text:
             game_view = GameView()
             game_view.username = self.input_box.text.title()
@@ -428,15 +435,19 @@ class InstructionView(arcade.View):
             self.window.show_view(game_view)
             
     def on_key_press(self, key, modifiers):
+        # Allow preogressing to the game by pressing the ENTER key
         if key == arcade.key.ENTER or key == arcade.key.RETURN:
             self.progress_to_game()
         
     def on_mouse_press(self, x, y, button, modifers):
-       self.progress_to_game()
+        # Allow preogressing to the game by clicking anywhere on the screen
+        self.progress_to_game()
             
 class FinishView(arcade.View):
     def __init__(self, position, personal_position, username):
+        # Call the parent class constructor
         super().__init__()
+        
         self.position = position
         self.personal_position = personal_position
         self.username = username
