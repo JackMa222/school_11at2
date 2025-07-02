@@ -314,10 +314,14 @@ class GameView(arcade.View):
         self.player_sprite = arcade.Sprite(self.player_texture, scale=scale)
         self.player_sprite.center_x = 240
         self.player_sprite.center_y = 128
+        
+        # Reposition if map requires
         if self.level in HORIZONTAL_START_LEVELS:
             self.player_sprite.angle = 90
             self.player_sprite.center_x = 96
             self.player_sprite.center_y = 240
+            
+        # Add player sprite to scene
         self.scene.add_sprite("Player", self.player_sprite)
         
         # Designate Finish Line
@@ -335,11 +339,7 @@ class GameView(arcade.View):
         self.physics_engine = arcade.PhysicsEngineSimple(
             self.player_sprite, walls=self.scene["Walls"]
         )
-        
-        # TODO probably can remove these with new countdown function
-        self.start_time = time.time()
-        self.is_live = True
-        
+            
         # Score text
         self.timer_text = arcade.Text(f"Level Score: {round(self.timer, 2)}", x = 16, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
         
@@ -347,15 +347,16 @@ class GameView(arcade.View):
         self.level_text = arcade.Text(f"Level: {self.level}", x = 16+64*7, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
         
         # Total time text
-        # TODO actually have total time
         self.total_timer_text = arcade.Text(f"Total Score: {round(self.timer, 2)}", x = 16+64*11, y = 16, font_size = 36, color = arcade.color.AMARANTH_PURPLE)
         
+        # Countdown number and booleans
         self.countdown = 3
         self.countdown_active = True
+        
+        # Set playable game status to False for now
         self.is_live = False
         
     def on_draw(self):
-        # TODO add comments
         # Clears the window with the configured background color set
         self.clear()
         
@@ -378,6 +379,7 @@ class GameView(arcade.View):
         self.level_text.draw()
         self.total_timer_text.draw()
         
+        # If countdown is active, display countdown numbers as required
         if self.countdown_active:
             countdown_number = int(self.countdown) + 1 if self.countdown > 0 else 1
             countdown_text = arcade.Text(str(countdown_number), self.window.width // 2, self.window.height //2, arcade.types.Color(18, 154, 76, 255), font_size=120, anchor_x="center", anchor_y="center", bold=True)
