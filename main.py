@@ -224,7 +224,7 @@ class GameView(arcade.View):
                 position, personal_position = self.leaderboard_manager.add_entry(self.username, final_score)
                 
                 # Instantiate FinishView
-                finish_view = FinishView(position, personal_position, self.username)
+                finish_view = FinishView(position, personal_position, self.username, final_score)
                 
                 # Show finish view
                 self.window.show_view(finish_view)
@@ -445,7 +445,7 @@ class InstructionView(arcade.View):
         self.progress_to_game()
             
 class FinishView(arcade.View):
-    def __init__(self, position, personal_position, username):
+    def __init__(self, position, personal_position, username, score):
         # Call the parent class constructor
         super().__init__()
         
@@ -453,6 +453,7 @@ class FinishView(arcade.View):
         self.position = position
         self.personal_position = personal_position
         self.username = username
+        self.score = score
         
         # Calculate base / starting positions for displaying text
         x_pos = self.window.width // 2
@@ -463,6 +464,7 @@ class FinishView(arcade.View):
             arcade.Text("Game over. Well done!", x_pos, y_pos, arcade.color.WHITE, font_size=50, anchor_x="center"),
             arcade.Text(f"Global position: {self.position}", x_pos, y_pos - 50, arcade.color.WHITE, font_size=20, anchor_x="center"),
             arcade.Text(f"Personal position: {self.personal_position}", x_pos, y_pos - 80, arcade.color.WHITE, font_size=20, anchor_x="center"),
+            arcade.Text(f"Score: {self.score}", x_pos, y_pos - 110, arcade.color.WHITE, font_size=20, anchor_x="center"),
         ]
         
         # Offset to space out leaderboard entries
