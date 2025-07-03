@@ -1,5 +1,5 @@
 # school_11at2
-This project is a simple racing game made for an assignment. It has fairly basic features and features 10 maps.
+This project is a simple racing game made for an assignment. It has fairly basic features and includes 10 maps.
 
 ## Setting up the project
 To run the project locally, follow these steps to create a virtual environment and install all required dependencies.
